@@ -1,0 +1,6 @@
+{
+	"@id": "https://example.com/my-tests/toRdf/0024-in-context",
+	"@context": {
+		"sensor": "http://example/sensor#"
+	}
+}

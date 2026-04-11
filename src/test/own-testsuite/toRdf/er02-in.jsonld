@@ -1,0 +1,4 @@
+{
+  "@context": "https://example.com/my-tests/toRdf/er02-in.jsonld",
+  "@id": "http://example/test#example"
+}

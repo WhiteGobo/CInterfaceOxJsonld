@@ -1,0 +1,15 @@
+{
+	"@context": {"schema": "http://schema.org/"},
+	"@graph": [
+		{
+			"@type": "schema:Person",
+			"@id": "http://example.com/foo",
+			"schema:name": "Foo"
+		},
+		{
+			"@type": "schema:Person",
+			"schema:name": {"@value": "Bar", "@language": "de"},
+			"schema:age": 14
+		}
+	]
+}

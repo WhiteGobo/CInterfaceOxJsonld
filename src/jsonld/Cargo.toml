@@ -1,0 +1,13 @@
+[package]
+name = "CInterfaceOxJsonld"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+oxjsonld = "0.2.4"
+oxrdf = "0.3.3"
+oxiri = "0.2.11"
+oxhttp = {version = "0.3.1", features = ["native-tls"]}

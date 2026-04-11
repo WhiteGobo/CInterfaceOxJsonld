@@ -1,0 +1,4 @@
+{
+  "@context": "https://example.com/my-tests/toRdf/0024/0024-in-context",
+  "sensor:active": true
+}

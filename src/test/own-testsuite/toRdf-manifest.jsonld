@@ -1,0 +1,57 @@
+{
+  "@context": ["context.jsonld", {"@base": "toRdf-manifest", "internetAccess": "http://example.com/my-tests/internetAccess"}],
+  "@id": "",
+  "@type": "mf:Manifest",
+  "name": "Transform JSON-LD to RDF",
+  "description": "",
+  "baseIri": "https://example.com/my-tests/",
+  "sequence": [
+    {
+      "@id": "#ter02",
+      "@type": [ "jld:NegativeEvaluationTest", "jld:ToRDFTest" ],
+      "name": "A context may not include itself recursively (direct) (duplicate)",
+      "purpose": "Verifies that an exception is raised on expansion when processing a context referencing itself",
+      "input": "toRdf/er02-in.jsonld",
+      "expectErrorCode": "recursive context inclusion",
+      "option": {"specVersion": "json-ld-1.0"}
+    }, {
+      "@id": "#ter03",
+      "@type": [ "jld:NegativeEvaluationTest", "jld:ToRDFTest" ],
+      "name": "A context may not include itself recursively (indirect)(duplicate)",
+      "purpose": "Verifies that an exception is raised on expansion when processing a context referencing itself indirectly",
+      "input": "toRdf/er03-in.jsonld",
+      "expectErrorCode": "recursive context inclusion",
+      "option": {"specVersion": "json-ld-1.0"}
+    }, {
+      "@id": "#t0024",
+      "@type": ["jld:PositiveEvaluationTest", "jld:ToRDFTest"],
+      "name": "Load relative local context",
+      "purpose": "Tests that a local context can be loaded.",
+      "input": "toRdf/0024-in.jsonld",
+      "expect": "toRdf/0024-out.nq"
+    }, {
+      "@id": "#neq01",
+      "@type": ["#NegativeEvalTest", "jld:ToRDFTest"],
+      "name": "Ensure that tests handle quads properly",
+      "purpose": "Tests that quads in a dataset arent equal triples.",
+      "input": "toRdf/neq-01-in.jsonld",
+      "expect": "toRdf/neq-01-out.nq"
+    }, {
+      "@id": "#ter05",
+      "@type": [ "jld:NegativeEvaluationTest", "jld:ToRDFTest" ],
+      "name": "Invalid remote context(duplicate)",
+      "purpose": "Verifies that an exception is raised on expansion when a remote context is not an object containing @context",
+      "input": "toRdf/er05-in.jsonld",
+      "expectErrorCode": "invalid remote context",
+      "option": {"specVersion": "json-ld-1.1"}
+    }, {
+      "@id": "#rc001",
+      "@type": ["jld:PositiveEvaluationTest", "jld:ToRDFTest"],
+      "name": "Load context from internet",
+      "purpose": "Tests that a context over http can be loaded.",
+      "input": "toRdf/rc001-in.jsonld",
+      "expect": "toRdf/rc001-out.nq",
+      "option": {"internetAccess": true}
+    }
+  ]
+}
