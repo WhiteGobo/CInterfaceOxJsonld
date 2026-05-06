@@ -1,5 +1,5 @@
 CMAKE=cmake
-SRC=src
+SRC=./
 BUILD=build
 CMAKE_CONFIGURE_OPT=
 CMAKE_BUILD_OPT=--verbose
@@ -31,4 +31,7 @@ memtest:
 .PHONY: clean
 clean:
 	-cd ${BUILD} && make clean
+
+.PHONY: clean-full
+clean-full: clean
 	-rm -rf ${BUILD}
