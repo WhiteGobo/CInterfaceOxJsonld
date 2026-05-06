@@ -14,7 +14,7 @@ typedef enum {
         TYPEDLITERAL = 2,
         LANGLITERAL = 3
 } TERMTYPE;
-#endif RDF_TERMTYPE_DEFINED
+#endif
 
 
 typedef struct jsonldConfig JSONLDConfig;
