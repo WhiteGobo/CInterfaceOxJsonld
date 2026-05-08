@@ -1,8 +1,15 @@
 
 add_subdirectory(nquadsparser)
-add_subdirectory(rusttools)
 
 include(cwalk.cmake)
+
+FetchContent_Declare(
+	BasicRDFGraphComparator
+	GIT_REPOSITORY https://github.com/WhiteGobo/BasicRDFGraphComparator.git
+	GIT_TAG 0a7b9393534410536d35375d2b8017c9c807f3ab
+	FIND_PACKAGE_ARGS
+)
+FetchContent_MakeAvailable(BasicRDFGraphComparator)
 
 include(CTest)
 include(helper_functions.cmake)
@@ -20,7 +27,7 @@ target_link_libraries(testdriver_toRdfTest PUBLIC
 
 target_link_libraries(testdriver_toRdfTest PRIVATE
 	nquadsparser
-	rusttools
+	BasicRDFGraphComparator
 	cwalk
 )
 

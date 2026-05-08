@@ -5,7 +5,8 @@
 #include "CInterfaceOxJsonld.h"
 #include <fcntl.h>
 //#include "helper_lib_graph.h"
-#include "rusttools.h"
+//#include "rusttools.h"
+#include "BasicRDFGraphComparator.h"
 #include "nquads_parser.h"
 #include <string.h>
 #include "cwalk.h"

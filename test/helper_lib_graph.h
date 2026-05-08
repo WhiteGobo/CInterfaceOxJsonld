@@ -1,12 +1,16 @@
 #pragma once
 #include <stdlib.h>
 
+#ifndef RDF_TERMTYPE_DEFINED
+#define RDF_TERMTYPE_DEFINED
 typedef enum {
-	HELPER_LIB_GRAPH_URI = 0,
-	HELPER_LIB_GRAPH_BNODE = 1,
-	HELPER_LIB_GRAPH_TYPED_LITERAL = 2,
-	HELPER_LIB_GRAPH_LANG_LITERAL = 3
-} HELPER_LIB_GRAPH_NODETYPE;
+        URI = 0,
+        BNODE = 1,
+        TYPEDLITERAL = 2,
+        LANGLITERAL = 3
+} TERMTYPE;
+#endif
+
 
 typedef struct tripleStream TripleStream;
 
