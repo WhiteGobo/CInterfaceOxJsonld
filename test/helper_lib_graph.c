@@ -27,10 +27,10 @@ typedef bool (*ht_iterate_t) (void* key, void* value, void* user);
 
 typedef struct singleTriple {
 	char* subject_value;
-	HELPER_LIB_GRAPH_NODETYPE subject_type;
+	TERMTYPE subject_type;
 	char* predicate_value;
 	char* object_value;
-	HELPER_LIB_GRAPH_NODETYPE object_type;
+	TERMTYPE object_type;
 	char* object_suffix;
 } SingleTriple;
 
@@ -44,7 +44,7 @@ static void add_TripleSet(TripleSet* triple_set, SingleTriple* key);
 static int remove_TripleSet(TripleSet* triple_set, SingleTriple* key);
 
 
-static void fprintf_term(FILE* stream, const char* value, HELPER_LIB_GRAPH_NODETYPE type, const char* suffix);
+static void fprintf_term(FILE* stream, const char* value, TERMTYPE type, const char* suffix);
 static void fprintf_triple(FILE* stream, SingleTriple* triple);
 
 typedef struct tripleList {
@@ -183,11 +183,11 @@ TripleStream* new_TripleStream(){
 }
 
 void append_TripleStream(TripleStream* stream,
-		const char* subject_value, HELPER_LIB_GRAPH_NODETYPE subject_type,
+		const char* subject_value, TERMTYPE subject_type,
 		const char* predicate_value,
 		const char* object_value, const char* object_suffix,
-		HELPER_LIB_GRAPH_NODETYPE object_type,
-		const char* graph, HELPER_LIB_GRAPH_NODETYPE graph_type)
+		TERMTYPE object_type,
+		const char* graph, TERMTYPE graph_type)
 {
 	TripleList *new;
 	new = malloc(sizeof(TripleList));
@@ -614,7 +614,7 @@ static int remove_TripleSet(TripleSet* triple_set, SingleTriple* key){
 	return err;
 }
 
-static void fprintf_term(FILE* stream, const char* value, HELPER_LIB_GRAPH_NODETYPE type, const char* suffix)
+static void fprintf_term(FILE* stream, const char* value, TERMTYPE type, const char* suffix)
 {
 	switch(type){
 		case HELPER_LIB_GRAPH_URI:
@@ -708,7 +708,7 @@ typedef struct startColorInEdgeList {
 typedef struct startColorOutEdgeList {
 	const char* predicate_value;
 	const char* object_value;
-	HELPER_LIB_GRAPH_NODETYPE object_type;
+	TERMTYPE object_type;
 	const char* object_suffix;
 	struct startColorOutEdgeList *next;
 } StartColorOutEdgeList;

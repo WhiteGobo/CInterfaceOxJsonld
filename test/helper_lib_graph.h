@@ -32,11 +32,11 @@ void free_TripleStream(TripleStream*);
  * and object_type = HELPER_LIB_GRAPH_LANG_LITERAL
  */
 void append_TripleStream(TripleStream* old,
-		const char* subject_value, HELPER_LIB_GRAPH_NODETYPE subject_type,
+		const char* subject_value, TERMTYPE subject_type,
 		const char* predicate_value,
 		const char* object_value, const char* object_suffix,
-		HELPER_LIB_GRAPH_NODETYPE object_type,
-		const char* graph, HELPER_LIB_GRAPH_NODETYPE graph_type);
+		TERMTYPE object_type,
+		const char* graph, TERMTYPE graph_type);
 
 /**
  * Check Isomorphims of the given rdf graphs.
