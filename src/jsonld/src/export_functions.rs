@@ -3,14 +3,14 @@ use std::os::raw::{c_char, c_void};
 use std::ffi::CStr;
 use oxjsonld::{JsonLdParser, JsonLdParseError};
 
-use crate::rename_error::my_error_print;
-use crate::document_loader::{
+use crate::parser::rename_error::my_error_print;
+use crate::parser::document_loader::{
     LoadDocumentCallbackOption,
 };
-use crate::parser_config::{
+use crate::parser::parser_config::{
     JSONLDConfig,
 };
-use crate::intern::{
+use crate::parser::intern::{
     TripleHandler,
     call_hook,
     CallHookError,

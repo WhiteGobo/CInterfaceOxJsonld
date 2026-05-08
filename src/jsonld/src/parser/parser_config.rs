@@ -6,7 +6,7 @@ use oxjsonld::{JsonLdLoadDocumentOptions, JsonLdRemoteDocument, JsonLdParser};
 use oxiri::IriParseError;
 
 use crate::error::MYERR;
-use crate::document_loader::{
+use crate::parser::document_loader::{
     LoadDocumentCallbackOption,
     call_document_loader,
 };

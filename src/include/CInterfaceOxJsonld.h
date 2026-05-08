@@ -17,6 +17,7 @@ typedef enum {
 #endif
 
 
+typedef struct jsonldSerializer JSONLDSerializer;
 typedef struct jsonldConfig JSONLDConfig;
 
 /*
@@ -49,6 +50,13 @@ JSONLDConfig *JSONLDConfig_enable_LoadDocumentCallback_for_relativefiles(
 						const char *basepath_c);
 
 int64_t parse_jsonld(const char *input, TripleHandler hook, void* hook_data, JSONLDConfig* config);
+
+int64_t JSONLD_add(const char* subject, uint8_t subject_type,
+                const char* predicate,
+                const char* object, const char* object_suffix,
+                uint8_t object_type,
+                const char* graph_id, uint8_t graph_type,
+                JSONLDSerializer* serializer);
 
 
 #ifdef __cplusplus
