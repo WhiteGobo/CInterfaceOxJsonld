@@ -327,11 +327,12 @@ static int8_t my_triplehandler(
 		fprintf(stderr, "failed triplehandler\n");
 		return 1;
 	}
-	append_TripleStream(qq,
+	append_TripleStream(
 			subject, subject_type,
 			predicate,
 			object, object_suffix, object_type,
-			graph_id, graph_type);
+			graph_id, graph_type,
+			qq);
 	return 0;
 }
 

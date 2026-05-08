@@ -6,7 +6,7 @@ include(cwalk.cmake)
 FetchContent_Declare(
 	BasicRDFGraphComparator
 	GIT_REPOSITORY https://github.com/WhiteGobo/BasicRDFGraphComparator.git
-	GIT_TAG 0a7b9393534410536d35375d2b8017c9c807f3ab
+	GIT_TAG 8b244ca1826c024a641d98f0bb52e3c649e79972
 	FIND_PACKAGE_ARGS
 )
 FetchContent_MakeAvailable(BasicRDFGraphComparator)
