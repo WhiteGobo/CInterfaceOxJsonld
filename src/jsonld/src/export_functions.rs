@@ -286,23 +286,29 @@ pub extern "C" fn JSONLD_SER_add(
     if serializer.is_null() {
         return -1;
     }
-    let subj = match generate_IdentifiedNode(subject, subject_type, serializer) {
-        Ok(x) => x,
-        Err(_) => {return -2;},
-    };
-    let pred = match generate_IRI(predicate) {
-        Ok(x) => x,
-        Err(_) => {return -3;},
-    };
-    let obj = match generate_Term(object, object_suffix, object_type, serializer){
-        Ok(x) => x,
-        Err(_) => {return -4;},
-    };
-    let graph = match generate_Graph(graph_id, graph_type, serializer) {
-        Ok(x) => x,
-        Err(_) => {return -5;},
-    };
-    unsafe{
+    unsafe {
+        let subj = match generate_IdentifiedNode(
+            subject, subject_type, &mut (*serializer))
+        {
+            Ok(x) => x,
+            Err(_) => {return -2;},
+        };
+        let pred = match generate_IRI(predicate) {
+            Ok(x) => x,
+            Err(_) => {return -3;},
+        };
+        let obj = match generate_Term(
+            object, object_suffix, object_type, &mut (*serializer))
+        {
+            Ok(x) => x,
+            Err(_) => {return -4;},
+        };
+        let graph = match generate_Graph(
+            graph_id, graph_type, &mut (*serializer))
+        {
+            Ok(x) => x,
+            Err(_) => {return -5;},
+        };
         (*serializer).serialize_quad(subj, pred, obj, graph);
     }
     return 0;
