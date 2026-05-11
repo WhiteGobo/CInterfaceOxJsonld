@@ -51,7 +51,11 @@ JSONLDConfig *JSONLDConfig_enable_LoadDocumentCallback_for_relativefiles(
 
 int64_t parse_jsonld(const char *input, TripleHandler hook, void* hook_data, JSONLDConfig* config);
 
-int64_t JSONLD_add(const char* subject, uint8_t subject_type,
+JSONLDSerializer* JSONLD_SER_start();
+JSONLDSerializer* JSONLD_SER_set_base_iri(JSONLDSerializer*, const char* baseiri);
+JSONLDSerializer* JSONLD_SER_set_prefix(JSONLDSerializer*, const char* name, const char* iri);
+char* JSONLD_SER_finish(JSONLDSerializer*);
+int64_t JSONLD_SER_add(const char* subject, uint8_t subject_type,
                 const char* predicate,
                 const char* object, const char* object_suffix,
                 uint8_t object_type,

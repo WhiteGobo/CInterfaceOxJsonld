@@ -1,5 +1,5 @@
 use std::ptr;
-use std::os::raw::{c_char, c_void};
+use std::os::raw::{c_char, c_uchar, c_void};
 use std::ffi::CStr;
 use oxjsonld::{JsonLdParser, JsonLdParseError};
 
@@ -18,6 +18,14 @@ use crate::parser::intern::{
 use crate::error::{
     MyIoErr,
 };
+
+use crate::serializer::config::{
+    JSONLDSerializer,
+};
+use crate::serializer::genterms::{
+    generate_IdentifiedNode, generate_IRI, generate_Term, generate_Graph,
+};
+
 
 
 #[unsafe(no_mangle)]
@@ -207,6 +215,95 @@ pub extern "C" fn parse_jsonld(
                 return -1;
             },
         }
+    }
+    return 0;
+}
+
+
+#[unsafe(no_mangle)]
+pub extern "C" fn JSONLD_SER_start() -> *mut JSONLDSerializer
+{
+    let x = JSONLDSerializer::new();
+    let mybox = Box::new(x);
+    let config = Box::into_raw(mybox);
+    config
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn JSONLD_SER_set_base_iri(
+    mut config: *mut JSONLDSerializer, baseiri: *const c_char,
+    ) -> *mut JSONLDSerializer
+{
+    if config.is_null() {
+        let x = JSONLDSerializer::new();
+        let mybox = Box::new(x);
+        config = Box::into_raw(mybox)
+    }
+    config
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn JSONLD_SER_set_prefix(
+    mut config: *mut JSONLDSerializer, name: *const c_char, iri: *const c_char,
+    ) -> *mut JSONLDSerializer
+{
+    if config.is_null() {
+        let x = JSONLDSerializer::new();
+        let mybox = Box::new(x);
+        config = Box::into_raw(mybox)
+    }
+    config
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn JSONLD_SER_finish(
+    config: *mut JSONLDSerializer,
+    ) -> *mut c_uchar
+{
+    if !config.is_null(){
+        unsafe {
+            let mut cfg = Box::from_raw(config);
+            match unsafe{cfg.finish()} {
+                Ok(mut x) => x.as_mut_ptr(),
+                Err(_) => ptr::null_mut(),
+            }
+        }
+    } else {
+        ptr::null_mut()
+    }
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn JSONLD_SER_add(
+    subject: *const c_char, subject_type: u8,
+    predicate: *const c_char,
+    object: *const c_char, object_suffix: *const c_char,
+    object_type: u8,
+    graph_id: *const c_char, graph_type: u8,
+    serializer: *mut JSONLDSerializer,
+    ) -> i64
+{
+    if serializer.is_null() {
+        return -1;
+    }
+    let subj = match generate_IdentifiedNode(subject, subject_type, serializer) {
+        Ok(x) => x,
+        Err(_) => {return -2;},
+    };
+    let pred = match generate_IRI(predicate) {
+        Ok(x) => x,
+        Err(_) => {return -3;},
+    };
+    let obj = match generate_Term(object, object_suffix, object_type, serializer){
+        Ok(x) => x,
+        Err(_) => {return -4;},
+    };
+    let graph = match generate_Graph(graph_id, graph_type, serializer) {
+        Ok(x) => x,
+        Err(_) => {return -5;},
+    };
+    unsafe{
+        (*serializer).serialize_quad(subj, pred, obj, graph);
     }
     return 0;
 }
