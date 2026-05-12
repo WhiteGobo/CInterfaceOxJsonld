@@ -1,6 +1,3 @@
-
-add_subdirectory(nquadsparser)
-
 include(cwalk.cmake)
 
 FetchContent_Declare(
@@ -10,6 +7,14 @@ FetchContent_Declare(
 	FIND_PACKAGE_ARGS
 )
 FetchContent_MakeAvailable(BasicRDFGraphComparator)
+
+FetchContent_Declare(
+	NQuadsRDF
+	GIT_REPOSITORY https://github.com/WhiteGobo/NQuadsRDF.git
+	GIT_TAG f98a85359f8caab0836d6ed1c27a421f0f027ded
+	FIND_PACKAGE_ARGS
+)
+FetchContent_MakeAvailable(NQuadsRDF)
 
 include(CTest)
 include(helper_functions.cmake)
@@ -26,7 +31,7 @@ target_link_libraries(testdriver_toRdfTest PUBLIC
 )
 
 target_link_libraries(testdriver_toRdfTest PRIVATE
-	nquadsparser
+	NQuadsRDF
 	BasicRDFGraphComparator
 	cwalk
 )
