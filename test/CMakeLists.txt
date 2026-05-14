@@ -11,7 +11,7 @@ FetchContent_MakeAvailable(BasicRDFGraphComparator)
 FetchContent_Declare(
 	NQuadsRDF
 	GIT_REPOSITORY https://github.com/WhiteGobo/NQuadsRDF.git
-	GIT_TAG 89d64958349df632871550b43e14e9cbff268299
+	GIT_TAG 7f424c76698a0df4b500d30a5917eaa2e038e65a
 	FIND_PACKAGE_ARGS
 )
 FetchContent_MakeAvailable(NQuadsRDF)
