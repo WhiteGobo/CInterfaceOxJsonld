@@ -78,7 +78,7 @@ int main(int argc, char *argv[]){
 	}
 	input_graph = new_TripleStream();
 	fprintf(stderr, "parse inputfile: %s\n", inputfile);
-	const char *input = load_input_into_memory();
+	char *input = load_input_into_memory();
 	if (input == NULL){
 		fprintf(stderr, "Missing input file: %s\n", inputfile);
 		exit(EXIT_FAILURE);
@@ -154,7 +154,7 @@ int main(int argc, char *argv[]){
 	fprintf(stderr, "\nparse expectfile: %s\n", expectfile);
 	test_graph = new_TripleStream();
 	err = nquads_parse_file(expectfile,
-			(NQUADS_TripleHandler*) my_triplehandler, test_graph);
+			(TripleHandler*) my_triplehandler, test_graph);
 	switch(err){
 		case 0:
 			break;
