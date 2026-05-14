@@ -19,6 +19,12 @@ FetchContent_MakeAvailable(NQuadsRDF)
 include(CTest)
 include(helper_functions.cmake)
 
+add_executable(minimalserialize minimalserialize.c)
+target_link_libraries(minimalserialize PUBLIC
+	CInterfaceOxJsonld
+	BasicRDFGraphComparator
+)
+add_test(NAME "minimal_serialize_test" COMMAND minimalserialize)
 
 add_executable(testdriver_toRdfTest
 	testdriverA.c
