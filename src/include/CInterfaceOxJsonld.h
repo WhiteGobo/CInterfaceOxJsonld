@@ -20,6 +20,8 @@ typedef enum {
 typedef struct jsonldSerializer JSONLDSerializer;
 typedef struct jsonldConfig JSONLDConfig;
 
+#ifndef TRIPLEHANDLER_DEFINED
+#define TRIPLEHANDLER_DEFINED
 /*
  * Use TERMTYPE for subject_type, object_type and graph_type.
  * If graphid is NULL, the default graph is used.
@@ -31,6 +33,8 @@ typedef int8_t TripleHandler(
                 uint8_t object_type,
                 const char* graphid, uint8_t graph_type,
                 void* user);
+
+#endif //TRIPLEHANDLER_DEFINED
 
 #ifdef __cplusplus
 //namespace: CInterfaceOxJsonld
