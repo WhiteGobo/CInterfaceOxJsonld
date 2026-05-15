@@ -26,6 +26,9 @@ use crate::serializer::genterms::{
     generate_IdentifiedNode, generate_IRI, generate_Term, generate_Graph,
 };
 
+unsafe extern "C" {
+    pub unsafe fn copy2cstring(input: *mut c_uchar) -> *mut c_uchar;
+}
 
 
 #[unsafe(no_mangle)]
@@ -264,7 +267,7 @@ pub extern "C" fn JSONLD_SER_finish(
         unsafe {
             let mut cfg = Box::from_raw(config);
             match unsafe{cfg.finish()} {
-                Ok(mut x) => x.as_mut_ptr(),
+                Ok(mut x) => copy2cstring(x.as_mut_ptr()), //allocated with C's malloc
                 Err(_) => ptr::null_mut(),
             }
         }

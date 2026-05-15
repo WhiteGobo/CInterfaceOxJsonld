@@ -2,7 +2,9 @@ find_package(OpenSSL 3.6 REQUIRED COMPONENTS SSL)
 
 include(corrosion.cmake)
 
+add_library(CInterfaceOxJsonld_CHelperlib STATIC CInterfaceOxJsonld_CHelperlib.c)
 corrosion_import_crate(MANIFEST_PATH jsonld/Cargo.toml)
+corrosion_link_libraries(CInterfaceOxJsonld CInterfaceOxJsonld_CHelperlib)
 target_sources(CInterfaceOxJsonld INTERFACE
         FILE_SET HEADERS
         BASE_DIRS include
