@@ -60,21 +60,21 @@ static bool compare_two_graphs(const char* x, const char* y){
 	err = parse_jsonld(x, (TripleHandler*) append_TripleStream, initial_triples, NULL);
 	if (err != 0){
 		fprintf(stderr, "Failed to reparse input:\n%s\n", x);
-		return 1;
+		return false;
 	}
 	err = parse_jsonld(y, (TripleHandler*) append_TripleStream, last_triples, NULL);
 	if (err != 0){
 		fprintf(stderr, "Failed to parse newly serialized:\n%s\n", y);
         	free_TripleStream(initial_triples);
-		return 2;
+		return false;
 	}
         are_same_graphs = compare_triples(initial_triples, last_triples);
         free_TripleStream(initial_triples);
         free_TripleStream(last_triples);
         if (are_same_graphs){
-		return 0;
+		return true;
 	}
 	fprintf(stderr, "expected serialized and parsed to be the "
 			"same info\nas input:\n%s\n\nserialized to:\n%s\n", x, y);
-	return 3;
+	return false;
 }
