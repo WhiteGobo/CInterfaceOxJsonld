@@ -66,10 +66,11 @@ pub mod config {
                 None => {return Err(());},
                 Some(w) => w,
             };
-            let ret = match writer.finish() {
+            let mut ret = match writer.finish() {
                 Ok(x) => x,
                 Err(_) => {return Err(());},
             };
+            ret.push(0); //ensure trailing '\0'
             Ok(ret)
         }
     }
