@@ -1,3 +1,4 @@
+set(pkgprefix "CInterfaceOxJsonld")
 set(tmpbase "${CMAKE_CURRENT_SOURCE_DIR}/jsonld-api-testsuite")
 set(toRdf_manifest "${tmpbase}/toRdf-manifest.jsonld")
 extract_info_from_jsonld_manifest(
@@ -6,7 +7,7 @@ extract_info_from_jsonld_manifest(
 math(EXPR range "${testlist_length} - 1")
 foreach(x RANGE 0 ${range})
 	string(JSON data GET ${testlist} ${x})
-	configure_toRdfTest(${tmpbase} ${baseIri} ${data} "testsuite-" )
+	configure_toRdfTest(${tmpbase} ${baseIri} ${data} "${pkgprefix}::testsuite-" )
 endforeach()
 
 set(tmpbase "${CMAKE_CURRENT_SOURCE_DIR}/own-testsuite")
@@ -17,7 +18,7 @@ extract_info_from_jsonld_manifest(
 math(EXPR range "${testlist_length} - 1")
 foreach(x RANGE 0 ${range})
 	string(JSON data GET ${testlist} ${x})
-	configure_toRdfTest(${tmpbase} ${baseIri} ${data} "owntestsuite-" )
+	configure_toRdfTest(${tmpbase} ${baseIri} ${data} "${pkgprefix}::owntestsuite::" )
 endforeach()
 
 
@@ -57,13 +58,16 @@ foreach( x IN ITEMS
 		"testsuite-#tm016" "testsuite-#tpi11"
 		"testsuite-#tpr25" "testsuite-#tpr43"
 		"testsuite-#ttn02"
-		"owntestsuite-#ter02" "owntestsuite-#ter03"
-		"owntestsuite-#ter05"
+		"owntestsuite::#ter02" "owntestsuite::#ter03"
+		"owntestsuite::#ter05"
 )
-	set_property(TEST "${x}" PROPERTY WILL_FAIL TRUE)
-	get_property(tmp_labels TEST "${x}" PROPERTY LABELS)
+	set_property(TEST "${pkgprefix}::${x}"
+		PROPERTY WILL_FAIL TRUE)
+	get_property(tmp_labels TEST "${pkgprefix}::${x}"
+		PROPERTY LABELS)
 	list(APPEND tmp_labels "ExpectError")
-	set_property(TEST "${x}" PROPERTY LABELS "${tmp_labels}")
+	set_property(TEST "${pkgprefix}::${x}"
+		PROPERTY LABELS "${tmp_labels}")
 endforeach()
 foreach( x IN ITEMS
 		"testsuite-#ter49"
@@ -71,11 +75,11 @@ foreach( x IN ITEMS
 		"testsuite-#tso07" "testsuite-#tso10" "testsuite-#tso12"
 		"testsuite-#tso13"
 )
-	set_property(TEST "${x}" PROPERTY
+	set_property(TEST "${pkgprefix}::${x}" PROPERTY
 		PASS_REGULAR_EXPRESSION ""
 	)
-	get_property(tmp_labels TEST "${x}" PROPERTY LABELS)
+	get_property(tmp_labels TEST "${pkgprefix}::${x}" PROPERTY LABELS)
 
 	list(APPEND tmp_labels "SkipErrorDescription")
-	set_property(TEST "${x}" PROPERTY LABELS "${tmp_labels}")
+	set_property(TEST "${pkgprefix}::${x}" PROPERTY LABELS "${tmp_labels}")
 endforeach()
