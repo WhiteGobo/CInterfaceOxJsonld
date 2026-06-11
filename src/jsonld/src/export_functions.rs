@@ -267,7 +267,10 @@ pub extern "C" fn JSONLD_SER_finish(
         unsafe {
             let mut cfg = Box::from_raw(config);
             match unsafe{cfg.finish()} {
-                Ok(mut x) => copy2cstring(x.as_mut_ptr()), //allocated with C's malloc
+                Ok(mut x) => {
+                    x.extend_from_slice(b"\0");
+                    copy2cstring(x.as_mut_ptr()) //allocated with C's malloc
+                },
                 Err(_) => ptr::null_mut(),
             }
         }
